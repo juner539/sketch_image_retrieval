@@ -14,9 +14,24 @@ def create_dict_texts(texts):
     d = {l: i for i, l in enumerate(texts)}
     return d
 
+def read_clslist_for_sketchy(train=True):
+    if train:
+        with open('sketchy_for_train.txt') as f:
+            clslist = f.read().splitlines()
+    else:
+        with open('sketchy_for_test.txt') as f:
+            clslist = f.read().splitlines()
+    return clslist
 
-def default_image_loader(path):
-    img = Image.fromarray(cv2.resize(np.array(Image.open(path).convert('RGB')), (224, 224)))
+
+
+
+
+def default_image_loader(path, isImage):
+    if isImage:
+        img = Image.fromarray(cv2.resize(np.array(Image.open(path).convert('RGB')), (224, 224)))
+    else:
+        img = Image.fromarray(cv2.resize(np.array(Image.open(path).convert('L')), (224, 224)))
     return img
 
 
